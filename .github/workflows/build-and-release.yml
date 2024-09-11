@@ -1,0 +1,61 @@
+name: Build and Draft Release
+
+# Only runs
+# - after PRs have been merged into master
+# - when a user specifically requests the workflow to run on a branch
+on:
+  workflow_dispatch:
+  push:
+    branches: main
+
+jobs:
+  compile:
+    name: "Compile"
+
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Nodejs
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20.11.0"
+
+      - name: Install correct npm version
+        run: npm install -g npm@10.2.4
+
+      - name: Install Maker CLI
+        run: npm install -g @elgato/cli
+
+      - name: Install Project Dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build
+
+      - name: Pack
+        run: streamdeck pack io.baumert.vmix.sdPlugin
+
+      - uses: release-drafter/release-drafter@v5
+        id: rd
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Rename Binary
+        run: mv io.baumert.vmix.streamDeckPlugin io.baumert.vmix-${{ steps.rd.outputs.tag_name }}.streamDeckPlugin
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          token: ${{ env.GITHUB_TOKEN }}
+          draft: true
+          prerelease: false
+          tag_name: ${{ steps.rd.outputs.tag_name }}
+          name: ${{ steps.rd.outputs.tag_name }}
+          body: ${{ steps.rd.outputs.body }}
+          generate_release_notes: false
+          files: |
+            ./io.baumert.vmix-${{ steps.rd.outputs.tag_name }}.streamDeckPlugin
