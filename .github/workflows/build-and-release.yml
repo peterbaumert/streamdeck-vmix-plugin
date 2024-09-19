@@ -37,7 +37,7 @@ jobs:
       - name: Pack
         run: streamdeck pack io.baumert.vmix.sdPlugin
 
-      - uses: release-drafter/release-drafter@v5
+      - uses: release-drafter/release-drafter@v6
         id: rd
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

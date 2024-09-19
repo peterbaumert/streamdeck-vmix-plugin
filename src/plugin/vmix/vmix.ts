@@ -57,7 +57,6 @@ export class vMix {
             this.external = this.generalState.externalOutput(xmlContent);
             this.active = XmlApi.Inputs.extractProgramInputNumber(xmlContent);
             this.preview = XmlApi.Inputs.extractPreviewInputNumber(xmlContent);
-            this.connected = true;
             this.inputs.forEach((input) => {
                 let i = this.inputList.findIndex(
                     ({ number }) => number == input.number.toString()
@@ -88,6 +87,7 @@ export class vMix {
         });
 
         this.connection.on("connect", () => {
+            this.connected = true;
             this.connection.send("XML");
             //this.connection.send("SUBSCRIBE TALLY");
         });

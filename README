@@ -1,0 +1,22 @@
+# StreamDeck vMix Plugin
+
+![GitHub Release](https://img.shields.io/github/v/release/peterbaumert/vmix-plugin)
+
+## Features
+### Generic functions for any vMix
+
+# Installation
+## Prerequisites
+* Installed Stream-Deck application
+* Connected Stream-Deck
+
+## Installation
+### Via the official Stream Deck store
+Coming soon...
+
+### Manual installation (not recommended)
+* Download the latest plugin release [here][https://github.com/petermbaumert/vmix-plugin/releases]
+* Open the downloaded .sdplugin file. It will be automatically installed into your Stream-Deck application
+
+## vMix
+ * Web AND TCP api need to be enabled
