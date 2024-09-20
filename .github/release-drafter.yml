@@ -29,6 +29,9 @@ version-resolver:
       - "documentation"
   default: patch
 autolabeler:
+  - label: "housekeeping"
+    files:
+      - "README"
   - label: "documentation"
     files:
       - "*.md"
