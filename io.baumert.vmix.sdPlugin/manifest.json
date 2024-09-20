@@ -18,6 +18,20 @@
 			]
 		},
 		{
+			"Name": "Picture",
+			"UUID": "io.baumert.vmix.picture",
+			"Icon": "imgs/actions/picture/action",
+			"Tooltip": "Move to Next/Previous Picture for Photo and PowerPoint Inputs",
+			"PropertyInspectorPath": "ui/picture.html",
+			"Controllers": ["Keypad"],
+			"States": [
+				{
+					"Image": "imgs/actions/picture/key_next",
+					"TitleAlignment": "top"
+				}
+			]
+		},
+		{
 			"Name": "External",
 			"UUID": "io.baumert.vmix.external",
 			"Icon": "imgs/actions/external/action",
