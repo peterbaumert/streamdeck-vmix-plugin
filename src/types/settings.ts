@@ -23,3 +23,7 @@ export type TransitionSettings = {
 export type ExternalSettings = {
     title: string;
 };
+
+export type StreamSettings = {
+    title: string;
+};

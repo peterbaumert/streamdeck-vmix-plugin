@@ -26,3 +26,9 @@ export type ExternalState = {
 
     disabled?: boolean;
 };
+
+export type StreamState = {
+    active: boolean;
+
+    disabled?: boolean;
+};

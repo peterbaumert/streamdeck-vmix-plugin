@@ -4,7 +4,7 @@ import { XmlApi } from "vmix-js-utils";
 import { BaseInput } from "vmix-js-utils/dist/types/inputs";
 import { VideoInput } from "vmix-js-utils/dist/types/inputs/video";
 import { MasterAudioBus } from "vmix-js-utils/dist/types/audio-bus";
-import { Input, Master, Transition, External } from "../../types/misc";
+import { Input, Master, Transition, External, Stream } from "../../types/misc";
 import { GlobalSettings } from "../../types/settings";
 import { OverlayChannel } from "vmix-js-utils/dist/types/overlay-channel";
 import XmlState from "vmix-js-utils/dist/xml-api/general-state";
@@ -26,8 +26,10 @@ export class vMix {
     private inputList: Input[] = [];
     private masterList: Master[] = [];
     private externalList: External[] = [];
+    private streamList: Stream[] = [];
     private generalState: XmlState;
     private external: boolean = false;
+    private stream: boolean = false;
 
     constructor() {
         this.host = "";
@@ -55,6 +57,7 @@ export class vMix {
             this.overlays = XmlApi.OverlayChannels.extract(xmlContent);
             this.generalState = new XmlApi.GeneralState(xmlContent);
             this.external = this.generalState.externalOutput(xmlContent);
+            this.stream = this.generalState.streaming(xmlContent);
             this.active = XmlApi.Inputs.extractProgramInputNumber(xmlContent);
             this.preview = XmlApi.Inputs.extractPreviewInputNumber(xmlContent);
             this.inputs.forEach((input) => {
@@ -83,6 +86,9 @@ export class vMix {
             });
             this.externalList.forEach((external) => {
                 external.that.initializeState(external.action, external.settings);
+            });
+            this.streamList.forEach((stream) => {
+                stream.that.initializeState(stream.action, stream.settings);
             });
         });
 
@@ -181,6 +187,13 @@ export class vMix {
         return this.external != null ? this.external : false;
     }
 
+    async getStream(): Promise<boolean> {
+        while (!this.isConnected()) {
+            await new Promise((f) => setTimeout(f, 5000));
+        }
+        return this.stream != null ? this.stream : false;
+    }
+
     async getSent(input: number): Promise<boolean> {
         while (!this.isConnected()) {
             await new Promise((f) => setTimeout(f, 5000));
@@ -210,6 +223,12 @@ export class vMix {
     async setExternal(active: boolean): Promise<void> {
         this.connection.send({
             Function: (active ? "Start" : "Stop") + "External"
+        });
+    }
+
+    async setStream(active: boolean): Promise<void> {
+        this.connection.send({
+            Function: (active ? "Start" : "Stop") + "Streaming"
         });
     }
 
@@ -278,6 +297,34 @@ export class vMix {
         ) {
             this.masterList.splice(
                 this.masterList.findIndex(({ action }) => action.id === ac.id),
+                1
+            );
+        }
+    }
+
+    async registerStream(ac: Action, that: any, settings: any) {
+        if (ac === undefined) return;
+        if (
+            this.streamList.find(({ action }) => action.id === ac.id) === undefined
+        ) {
+            this.streamList.push({
+                action: ac,
+                that: that,
+                settings: settings,
+            });
+            setTimeout(() => {
+                this.refresh(this);
+            }, 100);
+        }
+    }
+
+    async unregisterStream(ac: Action) {
+        if (ac === undefined) return;
+        if (
+            this.streamList.find(({ action }) => action.id === ac.id) !== undefined
+        ) {
+            this.streamList.splice(
+                this.streamList.findIndex(({ action }) => action.id === ac.id),
                 1
             );
         }
