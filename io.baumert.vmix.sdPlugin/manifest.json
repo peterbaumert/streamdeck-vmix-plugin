@@ -26,7 +26,7 @@
 			"Controllers": ["Keypad"],
 			"States": [
 				{
-					"Image": "imgs/actions/external/key_next",
+					"Image": "imgs/actions/picture/key_next",
 					"TitleAlignment": "top"
 				}
 			]
