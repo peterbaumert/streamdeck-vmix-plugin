@@ -6,12 +6,14 @@ import { Transition } from "./actions/transition";
 import { vMixInstance } from "./vmix/vmix";
 import { GlobalSettings } from "../types/settings";
 import { External } from "./actions/external";
+import { Stream } from "./actions/stream";
 
 streamDeck.logger.setLevel(LogLevel.DEBUG);
 streamDeck.actions.registerAction(new InputVolume());
 streamDeck.actions.registerAction(new MasterVolume());
 streamDeck.actions.registerAction(new Transition());
 streamDeck.actions.registerAction(new External());
+streamDeck.actions.registerAction(new Stream());
 streamDeck.connect();
 
 let globalSettings = await streamDeck.settings.getGlobalSettings<GlobalSettings>();

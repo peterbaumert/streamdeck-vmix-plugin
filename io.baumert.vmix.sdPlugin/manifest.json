@@ -31,6 +31,19 @@
 			]
 		},
 		{
+			"Name": "Stream",
+			"UUID": "io.baumert.vmix.stream",
+			"Icon": "imgs/actions/stream/action",
+			"Tooltip": "Toggle Streaming",
+			"Controllers": ["Keypad"],
+			"States": [
+				{
+					"Image": "imgs/actions/stream/key",
+					"TitleAlignment": "top"
+				}
+			]
+		},
+		{
 			"Name": "Input Volume",
 			"UUID": "io.baumert.vmix.inputvolume",
 			"Icon": "imgs/actions/volume/speaker",

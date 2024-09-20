@@ -7,6 +7,7 @@
 ### Generic functions for any vMix
 
 * Toggle External
+* Toggle Stream
 * Set Master Volume/Mute
 * Controll Input Volume/Mute/send to Master
 * Transitions to Program/Overlay
