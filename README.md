@@ -1,6 +1,6 @@
 # StreamDeck vMix Plugin
 
-![GitHub Release](https://img.shields.io/github/v/release/peterbaumert/vmix-plugin)
+![GitHub Release](https://img.shields.io/github/v/release/peterbaumert/streamdeck-vmix-plugin)
 
 ## Features
 
@@ -11,6 +11,7 @@
 * Set Master Volume/Mute
 * Controll Input Volume/Mute/send to Master
 * Transitions to Program/Overlay
+* Prev/Next Picture
 
 ## Getting started
 
@@ -27,7 +28,7 @@ Coming soon...
 
 #### Manual installation (not recommended)
 
-* Download the latest plugin release [here](https://github.com/petermbaumert/vmix-plugin/releases)
+* Download the latest plugin release [here](https://github.com/petermbaumert/streamdeck-vmix-plugin/releases)
 * Open the downloaded .sdplugin file. It will be automatically installed into your Stream-Deck application
 
 ## vMix

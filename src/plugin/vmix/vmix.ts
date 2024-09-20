@@ -4,7 +4,7 @@ import { XmlApi } from "vmix-js-utils";
 import { BaseInput } from "vmix-js-utils/dist/types/inputs";
 import { VideoInput } from "vmix-js-utils/dist/types/inputs/video";
 import { MasterAudioBus } from "vmix-js-utils/dist/types/audio-bus";
-import { Input, Master, Transition, External, Stream } from "../../types/misc";
+import { Input, Master, Transition, External, Stream, Picture } from "../../types/misc";
 import { GlobalSettings } from "../../types/settings";
 import { OverlayChannel } from "vmix-js-utils/dist/types/overlay-channel";
 import XmlState from "vmix-js-utils/dist/xml-api/general-state";
@@ -27,6 +27,7 @@ export class vMix {
     private masterList: Master[] = [];
     private externalList: External[] = [];
     private streamList: Stream[] = [];
+    private pictureList: Picture[] = [];
     private generalState: XmlState;
     private external: boolean = false;
     private stream: boolean = false;
@@ -78,6 +79,16 @@ export class vMix {
                     this.transitionList[i].that.initializeState(
                         this.transitionList[i].action,
                         this.transitionList[i].settings
+                    );
+                }
+
+                i = this.pictureList.findIndex(
+                    ({ number }) => number == input.number.toString()
+                );
+                if (i > -1) {
+                    this.pictureList[i].that.initializeState(
+                        this.pictureList[i].action,
+                        this.pictureList[i].settings
                     );
                 }
             });
@@ -203,6 +214,13 @@ export class vMix {
             (this.inputs[input - 1] as VideoInput).audiobusses.indexOf("M") > -1
             ? true
             : false;
+    }
+
+    async movetoPicture(input: string, next: boolean): Promise<void> {
+        this.connection.send({
+            Function: (next ? "Next" : "Previous") + "Picture",
+            Input: input
+        });
     }
 
     async setVolume(input: string, volume: number): Promise<void> {
@@ -353,6 +371,35 @@ export class vMix {
         ) {
             this.externalList.splice(
                 this.externalList.findIndex(({ action }) => action.id === ac.id),
+                1
+            );
+        }
+    }
+
+    async registerPicture(input: string, ac: Action, that: any, settings: any) {
+        if (ac === undefined) return;
+        if (
+            this.pictureList.find(({ action }) => action.id === ac.id) === undefined
+        ) {
+            this.pictureList.push({
+                number: input,
+                action: ac,
+                that: that,
+                settings: settings,
+            });
+            setTimeout(() => {
+                this.refresh(this);
+            }, 100);
+        }
+    }
+
+    async unregisterPicture(ac: Action) {
+        if (ac === undefined) return;
+        if (
+            this.pictureList.find(({ action }) => action.id === ac.id) !== undefined
+        ) {
+            this.pictureList.splice(
+                this.pictureList.findIndex(({ action }) => action.id === ac.id),
                 1
             );
         }

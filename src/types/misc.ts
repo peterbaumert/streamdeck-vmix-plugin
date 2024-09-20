@@ -1,5 +1,5 @@
 import { Action } from "@elgato/streamdeck";
-import { InputVolumeSettings, TransitionSettings, MasterVolumeSettings, ExternalSettings, StreamSettings } from "./settings"
+import { InputVolumeSettings, TransitionSettings, MasterVolumeSettings, ExternalSettings, StreamSettings, PictureSettings } from "./settings"
 
 export type Input = {
     number: string;
@@ -31,4 +31,11 @@ export type Transition = {
     action: Action;
     that: any;
     settings: TransitionSettings;
+}
+
+export type Picture = {
+    number: string;
+    action: Action;
+    that: any;
+    settings: PictureSettings;
 }

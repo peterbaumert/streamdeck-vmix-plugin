@@ -27,3 +27,9 @@ export type ExternalSettings = {
 export type StreamSettings = {
     title: string;
 };
+
+export type PictureSettings = {
+    input: string;
+    title: string;
+    next: boolean;
+};

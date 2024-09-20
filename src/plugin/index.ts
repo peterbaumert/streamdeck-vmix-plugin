@@ -7,6 +7,7 @@ import { vMixInstance } from "./vmix/vmix";
 import { GlobalSettings } from "../types/settings";
 import { External } from "./actions/external";
 import { Stream } from "./actions/stream";
+import { Picture } from "./actions/picture";
 
 streamDeck.logger.setLevel(LogLevel.DEBUG);
 streamDeck.actions.registerAction(new InputVolume());
@@ -14,6 +15,7 @@ streamDeck.actions.registerAction(new MasterVolume());
 streamDeck.actions.registerAction(new Transition());
 streamDeck.actions.registerAction(new External());
 streamDeck.actions.registerAction(new Stream());
+streamDeck.actions.registerAction(new Picture());
 streamDeck.connect();
 
 let globalSettings = await streamDeck.settings.getGlobalSettings<GlobalSettings>();

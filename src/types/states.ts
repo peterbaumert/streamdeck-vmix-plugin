@@ -32,3 +32,12 @@ export type StreamState = {
 
     disabled?: boolean;
 };
+
+export type PictureState = {
+    active: boolean;
+    preview: boolean;
+    overlay: boolean;
+
+
+    disabled?: boolean;
+};
