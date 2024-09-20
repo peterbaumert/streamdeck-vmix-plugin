@@ -1,12 +1,11 @@
 name: Build and Draft Release
 
-# Only runs
-# - after PRs have been merged into master
-# - when a user specifically requests the workflow to run on a branch
 on:
   workflow_dispatch:
   push:
     branches: main
+  pull_request:
+    types: [opened, reopened, synchronize]
 
 jobs:
   compile:
