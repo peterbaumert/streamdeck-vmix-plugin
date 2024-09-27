@@ -1,15 +1,8 @@
-import streamDeck, {
-	Action,
-	action,
-	DialRotateEvent,
-	SingletonAction,
-	WillAppearEvent,
-	WillDisappearEvent,
-	DialDownEvent,
-} from "@elgato/streamdeck";
-import { vMixInstance } from "../vmix/vmix";
+import streamDeck, { Action, action, DialDownEvent, DialRotateEvent, SingletonAction, WillAppearEvent, WillDisappearEvent } from "@elgato/streamdeck";
+
 import { MasterVolumeSettings } from "../../types/settings";
 import { MasterVolumeDialState } from "../../types/states";
+import { vMixInstance } from "../vmix/vmix";
 
 @action({ UUID: "io.baumert.vmix.mastervolume" })
 export class MasterVolume extends SingletonAction<MasterVolumeSettings> {
@@ -38,7 +31,7 @@ export class MasterVolume extends SingletonAction<MasterVolumeSettings> {
 		this.setDialState(ev.action.id, state);
 		await ev.action.setFeedback({
 			value: newVolume,
-			indicator: newVolume,
+			indicator: newVolume
 		});
 		await vMixInstance.setMasterVolume(newVolume);
 	}
@@ -54,16 +47,12 @@ export class MasterVolume extends SingletonAction<MasterVolumeSettings> {
 
 		this.setDialState(ev.action.id, state);
 		await ev.action.setFeedback({
-			icon: muted ? "imgs/actions/volume/speaker-disabled" : "imgs/actions/volume/speaker",
+			icon: muted ? "imgs/actions/volume/speaker-disabled" : "imgs/actions/volume/speaker"
 		});
 		await vMixInstance.toggleMasterAudio(state.muted);
 	}
 
-	async initializeDialState(
-		action: Action<MasterVolumeSettings>,
-		settings: MasterVolumeSettings,
-		override: boolean = false,
-	) {
+	async initializeDialState(action: Action<MasterVolumeSettings>, settings: MasterVolumeSettings, override: boolean = false) {
 		let changed = false;
 		const state = this.getDialState(action.id);
 		let volume: number;
@@ -79,8 +68,8 @@ export class MasterVolume extends SingletonAction<MasterVolumeSettings> {
 			await action.setFeedback({
 				value: "Error",
 				indicator: {
-					value: 0,
-				},
+					value: 0
+				}
 			});
 			return;
 		}
@@ -103,9 +92,9 @@ export class MasterVolume extends SingletonAction<MasterVolumeSettings> {
 				name: settings.title,
 				value: volume,
 				indicator: {
-					value: volume,
+					value: volume
 				},
-				icon: muted ? "imgs/actions/volume/speaker-disabled" : "imgs/actions/volume/speaker",
+				icon: muted ? "imgs/actions/volume/speaker-disabled" : "imgs/actions/volume/speaker"
 			});
 			action.showOk();
 		}
@@ -117,7 +106,7 @@ export class MasterVolume extends SingletonAction<MasterVolumeSettings> {
 			const defaultState = {
 				muted: false,
 				sent: true,
-				volume: 50,
+				volume: 50
 			};
 
 			this.dials[id] = defaultState;

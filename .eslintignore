@@ -1,8 +1,0 @@
-.git/
-.github/
-.vscode/
-gg.dennis.firebot.sdPlugin/
-node_modules/
-.eslintrc.cjs
-package.json
-package-lock.json

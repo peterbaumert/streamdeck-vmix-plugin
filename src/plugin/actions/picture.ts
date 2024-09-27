@@ -1,17 +1,9 @@
-import streamDeck, {
-	Action,
-	action,
-	SingletonAction,
-	WillAppearEvent,
-	WillDisappearEvent,
-	KeyDownEvent,
-	SendToPluginEvent,
-	DidReceiveSettingsEvent,
-} from "@elgato/streamdeck";
-import { vMixInstance } from "../vmix/vmix";
-import { PictureState } from "../../types/states";
-import { PictureSettings } from "../../types/settings";
+import streamDeck, { Action, action, DidReceiveSettingsEvent, KeyDownEvent, SendToPluginEvent, SingletonAction, WillAppearEvent, WillDisappearEvent } from "@elgato/streamdeck";
+
 import { InputsPayload } from "../../types/payloads";
+import { PictureSettings } from "../../types/settings";
+import { PictureState } from "../../types/states";
+import { vMixInstance } from "../vmix/vmix";
 
 @action({ UUID: "io.baumert.vmix.picture" })
 export class Picture extends SingletonAction<PictureSettings> {
@@ -98,7 +90,7 @@ export class Picture extends SingletonAction<PictureSettings> {
 			const defaultState = {
 				active: false,
 				preview: false,
-				overlay: false,
+				overlay: false
 			};
 
 			this.pictures[id] = defaultState;
@@ -118,12 +110,12 @@ export class Picture extends SingletonAction<PictureSettings> {
 			for (let i = 0; i < vMixInstance.inputs.length; i++) {
 				inputs.push({
 					label: vMixInstance.inputs[i].title,
-					value: vMixInstance.inputs[i].number,
+					value: vMixInstance.inputs[i].number
 				});
 			}
 			ev.action.sendToPropertyInspector({
 				event: "getInputs",
-				items: inputs,
+				items: inputs
 			});
 		}
 	}

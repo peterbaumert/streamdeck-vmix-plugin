@@ -1,19 +1,20 @@
 import streamDeck, {
 	Action,
 	action,
+	DialDownEvent,
 	DialRotateEvent,
+	DidReceiveSettingsEvent,
 	SendToPluginEvent,
 	SingletonAction,
-	WillAppearEvent,
-	WillDisappearEvent,
-	DidReceiveSettingsEvent,
-	DialDownEvent,
 	TouchTapEvent,
+	WillAppearEvent,
+	WillDisappearEvent
 } from "@elgato/streamdeck";
-import { vMixInstance } from "../vmix/vmix";
+
+import { InputsPayload } from "../../types/payloads";
 import { InputVolumeSettings } from "../../types/settings";
 import { VolumeDialState } from "../../types/states";
-import { InputsPayload } from "../../types/payloads";
+import { vMixInstance } from "../vmix/vmix";
 
 @action({ UUID: "io.baumert.vmix.inputvolume" })
 export class InputVolume extends SingletonAction<InputVolumeSettings> {
@@ -48,7 +49,7 @@ export class InputVolume extends SingletonAction<InputVolumeSettings> {
 		this.setDialState(ev.action.id, state);
 		await ev.action.setFeedback({
 			value: newVolume,
-			indicator: newVolume,
+			indicator: newVolume
 		});
 		await vMixInstance.setVolume(ev.payload.settings.input, newVolume);
 	}
@@ -64,7 +65,7 @@ export class InputVolume extends SingletonAction<InputVolumeSettings> {
 
 		this.setDialState(ev.action.id, state);
 		await ev.action.setFeedback({
-			icon: muted ? "imgs/actions/volume/speaker-disabled" : "imgs/actions/volume/speaker",
+			icon: muted ? "imgs/actions/volume/speaker-disabled" : "imgs/actions/volume/speaker"
 		});
 		await vMixInstance.toggleAudio(ev.payload.settings.input, state.muted);
 	}
@@ -85,16 +86,12 @@ export class InputVolume extends SingletonAction<InputVolumeSettings> {
 			name: ev.payload.settings.title,
 			value: state.volume,
 			indicator: {
-				value: state.volume,
-			},
+				value: state.volume
+			}
 		});
 	}
 
-	async initializeDialState(
-		action: Action<InputVolumeSettings>,
-		settings: InputVolumeSettings,
-		override: boolean = false,
-	) {
+	async initializeDialState(action: Action<InputVolumeSettings>, settings: InputVolumeSettings, override: boolean = false) {
 		let changed = false;
 		const state = this.getDialState(action.id);
 		let volume: number;
@@ -112,8 +109,8 @@ export class InputVolume extends SingletonAction<InputVolumeSettings> {
 			await action.setFeedback({
 				value: "Error",
 				indicator: {
-					value: 0,
-				},
+					value: 0
+				}
 			});
 			return;
 		}
@@ -141,9 +138,9 @@ export class InputVolume extends SingletonAction<InputVolumeSettings> {
 				name: settings.title,
 				value: volume,
 				indicator: {
-					value: volume,
+					value: volume
 				},
-				icon: muted ? "imgs/actions/volume/speaker-disabled" : "imgs/actions/volume/speaker",
+				icon: muted ? "imgs/actions/volume/speaker-disabled" : "imgs/actions/volume/speaker"
 			});
 			action.showOk();
 		}
@@ -155,7 +152,7 @@ export class InputVolume extends SingletonAction<InputVolumeSettings> {
 			const defaultState = {
 				muted: false,
 				sent: true,
-				volume: 50,
+				volume: 50
 			};
 
 			this.dials[id] = defaultState;
@@ -175,12 +172,12 @@ export class InputVolume extends SingletonAction<InputVolumeSettings> {
 			for (let i = 0; i < vMixInstance.inputs.length; i++) {
 				inputs.push({
 					label: vMixInstance.inputs[i].title,
-					value: vMixInstance.inputs[i].number,
+					value: vMixInstance.inputs[i].number
 				});
 			}
 			ev.action.sendToPropertyInspector({
 				event: "getInputs",
-				items: inputs,
+				items: inputs
 			});
 		}
 	}

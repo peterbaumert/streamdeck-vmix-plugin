@@ -1,18 +1,10 @@
-import streamDeck, {
-	Action,
-	action,
-	SendToPluginEvent,
-	SingletonAction,
-	WillAppearEvent,
-	WillDisappearEvent,
-	DidReceiveSettingsEvent,
-	KeyDownEvent,
-} from "@elgato/streamdeck";
-import { vMixInstance } from "../vmix/vmix";
+import streamDeck, { Action, action, DidReceiveSettingsEvent, KeyDownEvent, SendToPluginEvent, SingletonAction, WillAppearEvent, WillDisappearEvent } from "@elgato/streamdeck";
+
+import { OVERLAY, TRANSITIONTYPE } from "../../constants";
+import { InputsPayload } from "../../types/payloads";
 import { TransitionSettings } from "../../types/settings";
 import { TransitionState } from "../../types/states";
-import { InputsPayload } from "../../types/payloads";
-import { OVERLAY, TRANSITIONTYPE } from "../../constants";
+import { vMixInstance } from "../vmix/vmix";
 
 @action({ UUID: "io.baumert.vmix.transition" })
 export class Transition extends SingletonAction<TransitionSettings> {
@@ -45,10 +37,7 @@ export class Transition extends SingletonAction<TransitionSettings> {
 				state.overlay = overlay;
 				await vMixInstance.toggleOverlay(ev.payload.settings.input, state.overlay, ev.payload.settings.overlay);
 				break;
-			case TRANSITIONTYPE.TRANSITION1 ||
-				TRANSITIONTYPE.TRANSITION2 ||
-				TRANSITIONTYPE.TRANSITION3 ||
-				TRANSITIONTYPE.TRANSITION4:
+			case TRANSITIONTYPE.TRANSITION1 || TRANSITIONTYPE.TRANSITION2 || TRANSITIONTYPE.TRANSITION3 || TRANSITIONTYPE.TRANSITION4:
 				await vMixInstance.setPreview(ev.payload.settings.input);
 			default:
 				const active = true;
@@ -113,7 +102,7 @@ export class Transition extends SingletonAction<TransitionSettings> {
 			const defaultState = {
 				active: false,
 				preview: false,
-				overlay: false,
+				overlay: false
 			};
 
 			this.transitions[id] = defaultState;
@@ -133,26 +122,26 @@ export class Transition extends SingletonAction<TransitionSettings> {
 			for (let i = 0; i < vMixInstance.inputs.length; i++) {
 				inputs.push({
 					label: vMixInstance.inputs[i].title,
-					value: vMixInstance.inputs[i].number,
+					value: vMixInstance.inputs[i].number
 				});
 			}
 			ev.action.sendToPropertyInspector({
 				event: "getInputs",
-				items: inputs,
+				items: inputs
 			});
 		}
 		if (ev.payload.event == "getTransitions") {
 			var transitions = Object.entries(TRANSITIONTYPE).map(([value, label]) => ({ value: label, label: label }));
 			ev.action.sendToPropertyInspector({
 				event: "getTransitions",
-				items: transitions,
+				items: transitions
 			});
 		}
 		if (ev.payload.event == "getOverlays") {
 			var overlays = Object.entries(OVERLAY).map(([value, label]) => ({ value: label, label: label }));
 			ev.action.sendToPropertyInspector({
 				event: "getOverlays",
-				items: overlays,
+				items: overlays
 			});
 		}
 	}

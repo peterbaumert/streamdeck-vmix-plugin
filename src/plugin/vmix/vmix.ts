@@ -1,13 +1,14 @@
-import { ConnectionTCP } from "node-vmix";
 import streamDeck, { Action } from "@elgato/streamdeck";
+import { ConnectionTCP } from "node-vmix";
 import { XmlApi } from "vmix-js-utils";
+import { MasterAudioBus } from "vmix-js-utils/dist/types/audio-bus";
 import { BaseInput } from "vmix-js-utils/dist/types/inputs";
 import { VideoInput } from "vmix-js-utils/dist/types/inputs/video";
-import { MasterAudioBus } from "vmix-js-utils/dist/types/audio-bus";
-import { Input, Master, Transition, External, Stream, Picture } from "../../types/misc";
-import { GlobalSettings } from "../../types/settings";
 import { OverlayChannel } from "vmix-js-utils/dist/types/overlay-channel";
 import XmlState from "vmix-js-utils/dist/xml-api/general-state";
+
+import { External, Input, Master, Picture, Stream, Transition } from "../../types/misc";
+import { GlobalSettings } from "../../types/settings";
 
 const logger = streamDeck.logger.createScope("vMix");
 
@@ -97,10 +98,7 @@ export class vMix {
 		if (that.connected) {
 			that.connection.send("XML");
 		}
-		if (
-			(that.inputList === undefined || that.inputList.length == 0) &&
-			(this.masterList === undefined || that.masterList.length == 0)
-		) {
+		if ((that.inputList === undefined || that.inputList.length == 0) && (this.masterList === undefined || that.masterList.length == 0)) {
 			return;
 		}
 		setTimeout(() => {
@@ -146,9 +144,7 @@ export class vMix {
 		while (!this.isConnected()) {
 			await new Promise((f) => setTimeout(f, 5000));
 		}
-		return this.inputs.length != 0 && this.inputs[input - 1] !== undefined
-			? Math.floor(Math.pow((this.inputs[input - 1] as VideoInput).volume / 100, 0.25) * 100)
-			: 0;
+		return this.inputs.length != 0 && this.inputs[input - 1] !== undefined ? Math.floor(Math.pow((this.inputs[input - 1] as VideoInput).volume / 100, 0.25) * 100) : 0;
 	}
 
 	async getMasterVolume(): Promise<number> {
@@ -162,9 +158,7 @@ export class vMix {
 		while (!this.isConnected()) {
 			await new Promise((f) => setTimeout(f, 5000));
 		}
-		return this.inputs.length != 0 && this.inputs[input - 1] !== undefined
-			? (this.inputs[input - 1] as VideoInput).muted
-			: false;
+		return this.inputs.length != 0 && this.inputs[input - 1] !== undefined ? (this.inputs[input - 1] as VideoInput).muted : false;
 	}
 
 	async getMasterMuted(): Promise<boolean> {
@@ -192,17 +186,13 @@ export class vMix {
 		while (!this.isConnected()) {
 			await new Promise((f) => setTimeout(f, 5000));
 		}
-		return this.inputs.length != 0 &&
-			this.inputs[input - 1] !== undefined &&
-			(this.inputs[input - 1] as VideoInput).audiobusses.indexOf("M") > -1
-			? true
-			: false;
+		return this.inputs.length != 0 && this.inputs[input - 1] !== undefined && (this.inputs[input - 1] as VideoInput).audiobusses.indexOf("M") > -1 ? true : false;
 	}
 
 	async movetoPicture(input: string, next: boolean): Promise<void> {
 		this.connection.send({
 			Function: (next ? "Next" : "Previous") + "Picture",
-			Input: input,
+			Input: input
 		});
 	}
 
@@ -210,60 +200,60 @@ export class vMix {
 		this.connection.send({
 			Function: "SetVolume",
 			Input: input,
-			Value: volume,
+			Value: volume
 		});
 	}
 
 	async setMasterVolume(volume: number): Promise<void> {
 		this.connection.send({
 			Function: "SetMasterVolume",
-			Value: volume,
+			Value: volume
 		});
 	}
 
 	async setExternal(active: boolean): Promise<void> {
 		this.connection.send({
-			Function: (active ? "Start" : "Stop") + "External",
+			Function: (active ? "Start" : "Stop") + "External"
 		});
 	}
 
 	async setStream(active: boolean): Promise<void> {
 		this.connection.send({
-			Function: (active ? "Start" : "Stop") + "Streaming",
+			Function: (active ? "Start" : "Stop") + "Streaming"
 		});
 	}
 
 	async toggleAudio(input: string, muted: boolean): Promise<void> {
 		this.connection.send({
 			Function: "Audio" + (muted ? "Off" : "On"),
-			Input: input,
+			Input: input
 		});
 	}
 
 	async setPreview(input: string): Promise<void> {
 		this.connection.send({
 			Function: "PreviewInput",
-			Input: input,
+			Input: input
 		});
 	}
 
 	async setActive(input: string, type: string): Promise<void> {
 		this.connection.send({
 			Function: type,
-			Input: input,
+			Input: input
 		});
 	}
 
 	async toggleOverlay(input: string, active: boolean, overlay: string): Promise<void> {
 		this.connection.send({
 			Function: overlay,
-			Input: input,
+			Input: input
 		});
 	}
 
 	async toggleMasterAudio(muted: boolean): Promise<void> {
 		this.connection.send({
-			Function: "MasterAudio" + (muted ? "Off" : "On"),
+			Function: "MasterAudio" + (muted ? "Off" : "On")
 		});
 	}
 
@@ -271,7 +261,7 @@ export class vMix {
 		this.connection.send({
 			Function: "AudioBus" + (sent ? "On" : "Off"),
 			Input: input,
-			Value: "M",
+			Value: "M"
 		});
 	}
 
@@ -281,7 +271,7 @@ export class vMix {
 			this.masterList.push({
 				action: ac,
 				that: that,
-				settings: settings,
+				settings: settings
 			});
 			setTimeout(() => {
 				this.refresh(this);
@@ -294,7 +284,7 @@ export class vMix {
 		if (this.masterList.find(({ action }) => action.id === ac.id) !== undefined) {
 			this.masterList.splice(
 				this.masterList.findIndex(({ action }) => action.id === ac.id),
-				1,
+				1
 			);
 		}
 	}
@@ -305,7 +295,7 @@ export class vMix {
 			this.streamList.push({
 				action: ac,
 				that: that,
-				settings: settings,
+				settings: settings
 			});
 			setTimeout(() => {
 				this.refresh(this);
@@ -318,7 +308,7 @@ export class vMix {
 		if (this.streamList.find(({ action }) => action.id === ac.id) !== undefined) {
 			this.streamList.splice(
 				this.streamList.findIndex(({ action }) => action.id === ac.id),
-				1,
+				1
 			);
 		}
 	}
@@ -329,7 +319,7 @@ export class vMix {
 			this.externalList.push({
 				action: ac,
 				that: that,
-				settings: settings,
+				settings: settings
 			});
 			setTimeout(() => {
 				this.refresh(this);
@@ -342,7 +332,7 @@ export class vMix {
 		if (this.externalList.find(({ action }) => action.id === ac.id) !== undefined) {
 			this.externalList.splice(
 				this.externalList.findIndex(({ action }) => action.id === ac.id),
-				1,
+				1
 			);
 		}
 	}
@@ -354,7 +344,7 @@ export class vMix {
 				number: input,
 				action: ac,
 				that: that,
-				settings: settings,
+				settings: settings
 			});
 			setTimeout(() => {
 				this.refresh(this);
@@ -367,7 +357,7 @@ export class vMix {
 		if (this.pictureList.find(({ action }) => action.id === ac.id) !== undefined) {
 			this.pictureList.splice(
 				this.pictureList.findIndex(({ action }) => action.id === ac.id),
-				1,
+				1
 			);
 		}
 	}
@@ -379,7 +369,7 @@ export class vMix {
 				number: input,
 				action: ac,
 				that: that,
-				settings: settings,
+				settings: settings
 			});
 			setTimeout(() => {
 				this.refresh(this);
@@ -392,7 +382,7 @@ export class vMix {
 		if (this.transitionList.find(({ action }) => action.id === ac.id) !== undefined) {
 			this.transitionList.splice(
 				this.transitionList.findIndex(({ action }) => action.id === ac.id),
-				1,
+				1
 			);
 		}
 	}
@@ -404,7 +394,7 @@ export class vMix {
 				number: input,
 				action: ac,
 				that: that,
-				settings: settings,
+				settings: settings
 			});
 			setTimeout(() => {
 				this.refresh(this);
@@ -417,7 +407,7 @@ export class vMix {
 		if (this.inputList.find(({ action }) => action.id === ac.id) !== undefined) {
 			this.inputList.splice(
 				this.inputList.findIndex(({ action }) => action.id === ac.id),
-				1,
+				1
 			);
 		}
 	}

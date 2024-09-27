@@ -1,14 +1,8 @@
-import streamDeck, {
-	Action,
-	action,
-	SingletonAction,
-	WillAppearEvent,
-	WillDisappearEvent,
-	KeyDownEvent,
-} from "@elgato/streamdeck";
-import { vMixInstance } from "../vmix/vmix";
-import { StreamState } from "../../types/states";
+import streamDeck, { Action, action, KeyDownEvent, SingletonAction, WillAppearEvent, WillDisappearEvent } from "@elgato/streamdeck";
+
 import { StreamSettings } from "../../types/settings";
+import { StreamState } from "../../types/states";
+import { vMixInstance } from "../vmix/vmix";
 
 @action({ UUID: "io.baumert.vmix.stream" })
 export class Stream extends SingletonAction<StreamSettings> {
@@ -75,7 +69,7 @@ export class Stream extends SingletonAction<StreamSettings> {
 		const state = this.streams[id];
 		if (state == null) {
 			const defaultState = {
-				active: false,
+				active: false
 			};
 
 			this.streams[id] = defaultState;

@@ -1,14 +1,8 @@
-import streamDeck, {
-	Action,
-	action,
-	SingletonAction,
-	WillAppearEvent,
-	WillDisappearEvent,
-	KeyDownEvent,
-} from "@elgato/streamdeck";
-import { vMixInstance } from "../vmix/vmix";
-import { ExternalState } from "../../types/states";
+import streamDeck, { Action, action, KeyDownEvent, SingletonAction, WillAppearEvent, WillDisappearEvent } from "@elgato/streamdeck";
+
 import { ExternalSettings } from "../../types/settings";
+import { ExternalState } from "../../types/states";
+import { vMixInstance } from "../vmix/vmix";
 
 @action({ UUID: "io.baumert.vmix.external" })
 export class External extends SingletonAction<ExternalSettings> {
@@ -75,7 +69,7 @@ export class External extends SingletonAction<ExternalSettings> {
 		const state = this.externals[id];
 		if (state == null) {
 			const defaultState = {
-				active: false,
+				active: false
 			};
 
 			this.externals[id] = defaultState;
