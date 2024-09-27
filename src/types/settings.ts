@@ -1,35 +1,35 @@
 export type GlobalSettings = {
-    endpoint: string;
-}
+	endpoint: string;
+};
 
 export type InputVolumeSettings = {
-    input: string;
-    title: string;
-    steps: number;
+	input: string;
+	title: string;
+	steps: number;
 };
 
 export type MasterVolumeSettings = {
-    title: string;
-    steps: number;
+	title: string;
+	steps: number;
 };
 
 export type TransitionSettings = {
-    input: string;
-    title: string;
-    transition: string;
-    overlay: string;
-}
+	input: string;
+	title: string;
+	transition: string;
+	overlay: string;
+};
 
 export type ExternalSettings = {
-    title: string;
+	title: string;
 };
 
 export type StreamSettings = {
-    title: string;
+	title: string;
 };
 
 export type PictureSettings = {
-    input: string;
-    title: string;
-    next: boolean;
+	input: string;
+	title: string;
+	next: boolean;
 };

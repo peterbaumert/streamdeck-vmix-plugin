@@ -1,132 +1,132 @@
 {
-	"Name": "vMix",
-	"Version": "0.1.0.0",
-	"Author": "Peter Baumert",
-	"Actions": [
-		{
-			"Name": "Tansition",
-			"UUID": "io.baumert.vmix.transition",
-			"Icon": "imgs/actions/transition/action",
-			"PropertyInspectorPath": "ui/transition.html",
-			"Tooltip": "Run a Transition",
-			"Controllers": ["Keypad"],
-			"States": [
-				{
-					"Image": "imgs/actions/transition/key",
-					"TitleAlignment": "top"
-				}
-			]
-		},
-		{
-			"Name": "Picture",
-			"UUID": "io.baumert.vmix.picture",
-			"Icon": "imgs/actions/picture/action",
-			"Tooltip": "Move to Next/Previous Picture for Photo and PowerPoint Inputs",
-			"PropertyInspectorPath": "ui/picture.html",
-			"Controllers": ["Keypad"],
-			"States": [
-				{
-					"Image": "imgs/actions/picture/key_next",
-					"TitleAlignment": "top"
-				}
-			]
-		},
-		{
-			"Name": "External",
-			"UUID": "io.baumert.vmix.external",
-			"Icon": "imgs/actions/external/action",
-			"Tooltip": "Toggle External Output",
-			"Controllers": ["Keypad"],
-			"States": [
-				{
-					"Image": "imgs/actions/external/key",
-					"TitleAlignment": "top"
-				}
-			]
-		},
-		{
-			"Name": "Stream",
-			"UUID": "io.baumert.vmix.stream",
-			"Icon": "imgs/actions/stream/action",
-			"Tooltip": "Toggle Streaming",
-			"Controllers": ["Keypad"],
-			"States": [
-				{
-					"Image": "imgs/actions/stream/key",
-					"TitleAlignment": "top"
-				}
-			]
-		},
-		{
-			"Name": "Input Volume",
-			"UUID": "io.baumert.vmix.inputvolume",
-			"Icon": "imgs/actions/volume/speaker",
-			"Tooltip": "Control Audio settings of an Input",
-			"PropertyInspectorPath": "ui/inputvolume.html",
-			"Controllers": ["Encoder"],
-			"States": [
-				{
-					"Image": "imgs/actions/volume/speaker",
-					"TitleAlignment": "middle",
-					"FontSize": 16
-				}
-			],
-			"Encoder": {
-				"Icon": "imgs/actions/volume/speaker",
-				"layout": "json/layouts/green.json",
-				"TriggerDescription": {
-					"Rotate": "Adjust volume",
-					"Push": "Mute/Unmute",
-					"Touch": "Enable/Disable"
-				}
-			}
-		},
-		{
-			"Name": "Master Volume",
-			"UUID": "io.baumert.vmix.mastervolume",
-			"Icon": "imgs/actions/volume/speaker",
-			"Tooltip": "Control Audio settings of an Input",
-			"Controllers": ["Encoder"],
-			"States": [
-				{
-					"Image": "imgs/actions/volume/speaker",
-					"TitleAlignment": "middle",
-					"FontSize": 16
-				}
-			],
-			"Encoder": {
-				"Icon": "imgs/actions/volume/speaker",
-				"layout": "$B1",
-				"TriggerDescription": {
-					"Rotate": "Adjust volume",
-					"Push": "Mute/Unmute"
-				}
-			}
-		}
-	],
-	"Category": "vMix",
-	"CategoryIcon": "imgs/plugin/icon28",
-	"CodePath": "bin/plugin.js",
-	"Description": "Plugin to controll vMix",
-	"Icon": "imgs/plugin/icon144",
-	"SDKVersion": 2,
-	"Software": {
-		"MinimumVersion": "6.5"
-	},
-	"OS": [
-		{
-			"Platform": "mac",
-			"MinimumVersion": "10.15"
-		},
-		{
-			"Platform": "windows",
-			"MinimumVersion": "10"
-		}
-	],
-	"Nodejs": {
-		"Version": "20",
-		"Debug": "enabled"
-	},
-	"UUID": "io.baumert.vmix",
-	"$schema": "https://schemas.elgato.com/streamdeck/plugins/manifest.json"
+    "Name": "vMix",
+    "Version": "0.1.0.0",
+    "Author": "Peter Baumert",
+    "Actions": [
+        {
+            "Name": "Tansition",
+            "UUID": "io.baumert.vmix.transition",
+            "Icon": "imgs/actions/transition/action",
+            "PropertyInspectorPath": "ui/transition.html",
+            "Tooltip": "Run a Transition",
+            "Controllers": ["Keypad"],
+            "States": [
+                {
+                    "Image": "imgs/actions/transition/key",
+                    "TitleAlignment": "top"
+                }
+            ]
+        },
+        {
+            "Name": "Picture",
+            "UUID": "io.baumert.vmix.picture",
+            "Icon": "imgs/actions/picture/action",
+            "Tooltip": "Move to Next/Previous Picture for Photo and PowerPoint Inputs",
+            "PropertyInspectorPath": "ui/picture.html",
+            "Controllers": ["Keypad"],
+            "States": [
+                {
+                    "Image": "imgs/actions/picture/key_next",
+                    "TitleAlignment": "top"
+                }
+            ]
+        },
+        {
+            "Name": "External",
+            "UUID": "io.baumert.vmix.external",
+            "Icon": "imgs/actions/external/action",
+            "Tooltip": "Toggle External Output",
+            "Controllers": ["Keypad"],
+            "States": [
+                {
+                    "Image": "imgs/actions/external/key",
+                    "TitleAlignment": "top"
+                }
+            ]
+        },
+        {
+            "Name": "Stream",
+            "UUID": "io.baumert.vmix.stream",
+            "Icon": "imgs/actions/stream/action",
+            "Tooltip": "Toggle Streaming",
+            "Controllers": ["Keypad"],
+            "States": [
+                {
+                    "Image": "imgs/actions/stream/key",
+                    "TitleAlignment": "top"
+                }
+            ]
+        },
+        {
+            "Name": "Input Volume",
+            "UUID": "io.baumert.vmix.inputvolume",
+            "Icon": "imgs/actions/volume/speaker",
+            "Tooltip": "Control Audio settings of an Input",
+            "PropertyInspectorPath": "ui/inputvolume.html",
+            "Controllers": ["Encoder"],
+            "States": [
+                {
+                    "Image": "imgs/actions/volume/speaker",
+                    "TitleAlignment": "middle",
+                    "FontSize": 16
+                }
+            ],
+            "Encoder": {
+                "Icon": "imgs/actions/volume/speaker",
+                "layout": "json/layouts/green.json",
+                "TriggerDescription": {
+                    "Rotate": "Adjust volume",
+                    "Push": "Mute/Unmute",
+                    "Touch": "Enable/Disable"
+                }
+            }
+        },
+        {
+            "Name": "Master Volume",
+            "UUID": "io.baumert.vmix.mastervolume",
+            "Icon": "imgs/actions/volume/speaker",
+            "Tooltip": "Control Audio settings of an Input",
+            "Controllers": ["Encoder"],
+            "States": [
+                {
+                    "Image": "imgs/actions/volume/speaker",
+                    "TitleAlignment": "middle",
+                    "FontSize": 16
+                }
+            ],
+            "Encoder": {
+                "Icon": "imgs/actions/volume/speaker",
+                "layout": "$B1",
+                "TriggerDescription": {
+                    "Rotate": "Adjust volume",
+                    "Push": "Mute/Unmute"
+                }
+            }
+        }
+    ],
+    "Category": "vMix",
+    "CategoryIcon": "imgs/plugin/icon28",
+    "CodePath": "bin/plugin.js",
+    "Description": "Plugin to controll vMix",
+    "Icon": "imgs/plugin/icon144",
+    "SDKVersion": 2,
+    "Software": {
+        "MinimumVersion": "6.5"
+    },
+    "OS": [
+        {
+            "Platform": "mac",
+            "MinimumVersion": "10.15"
+        },
+        {
+            "Platform": "windows",
+            "MinimumVersion": "10"
+        }
+    ],
+    "Nodejs": {
+        "Version": "20",
+        "Debug": "enabled"
+    },
+    "UUID": "io.baumert.vmix",
+    "$schema": "https://schemas.elgato.com/streamdeck/plugins/manifest.json"
 }

@@ -1,28 +1,42 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
+	<head lang="en">
+		<title>Transition Settings</title>
+		<meta charset="utf-8" />
+		<script src="https://cdn.jsdelivr.net/gh/geekyeggo/sdpi-components@v3/dist/sdpi-components.js"></script>
+	</head>
 
-<head lang="en">
-    <title>Transition Settings</title>
-    <meta charset="utf-8" />
-    <script src="https://cdn.jsdelivr.net/gh/geekyeggo/sdpi-components@v3/dist/sdpi-components.js"></script>
-</head>
-
-<body>
-    <sdpi-item label="Input">
-        <sdpi-select setting="input" label-setting="title" placeholder="Please choose an Input" datasource="getInputs"
-            loading="Fetching inputs..." hot-reload>
-        </sdpi-select>
-    </sdpi-item>
-    <sdpi-item label="Transition">
-        <sdpi-select setting="transition" placeholder="Please choose a Transition" datasource="getTransitions"
-            loading="Fetching transitions..." hot-reload>
-        </sdpi-select>
-    </sdpi-item>
-    <sdpi-item label="Overlay">
-        <sdpi-select setting="overlay" placeholder="Please choose an Overlay" datasource="getOverlays"
-            loading="Fetching overlays..." hot-reload>
-        </sdpi-select>
-    </sdpi-item>
-</body>
-
+	<body>
+		<sdpi-item label="Input">
+			<sdpi-select
+				setting="input"
+				label-setting="title"
+				placeholder="Please choose an Input"
+				datasource="getInputs"
+				loading="Fetching inputs..."
+				hot-reload
+			>
+			</sdpi-select>
+		</sdpi-item>
+		<sdpi-item label="Transition">
+			<sdpi-select
+				setting="transition"
+				placeholder="Please choose a Transition"
+				datasource="getTransitions"
+				loading="Fetching transitions..."
+				hot-reload
+			>
+			</sdpi-select>
+		</sdpi-item>
+		<sdpi-item label="Overlay">
+			<sdpi-select
+				setting="overlay"
+				placeholder="Please choose an Overlay"
+				datasource="getOverlays"
+				loading="Fetching overlays..."
+				hot-reload
+			>
+			</sdpi-select>
+		</sdpi-item>
+	</body>
 </html>

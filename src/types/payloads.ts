@@ -1,4 +1,4 @@
 export type InputsPayload = {
-    event: string;
-    items: any;
+	event: string;
+	items: any;
 };

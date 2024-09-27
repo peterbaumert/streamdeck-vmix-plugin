@@ -21,10 +21,10 @@ streamDeck.connect();
 let globalSettings = await streamDeck.settings.getGlobalSettings<GlobalSettings>();
 
 if (Object.keys(globalSettings).length === 0) {
-    globalSettings = {
-        endpoint: "127.0.0.1",
-    };
-    await streamDeck.settings.setGlobalSettings<GlobalSettings>(globalSettings);
+	globalSettings = {
+		endpoint: "127.0.0.1",
+	};
+	await streamDeck.settings.setGlobalSettings<GlobalSettings>(globalSettings);
 }
 
 export const vm = vMixInstance;

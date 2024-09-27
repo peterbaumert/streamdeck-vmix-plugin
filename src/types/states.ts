@@ -1,43 +1,42 @@
 export type MasterVolumeDialState = {
-    muted: boolean;
-    volume: number;
+	muted: boolean;
+	volume: number;
 
-    disabled?: boolean;
+	disabled?: boolean;
 };
 
 export type VolumeDialState = {
-    muted: boolean;
-    sent: boolean;
-    volume: number;
+	muted: boolean;
+	sent: boolean;
+	volume: number;
 
-    disabled?: boolean;
+	disabled?: boolean;
 };
 
 export type TransitionState = {
-    active: boolean;
-    preview: boolean;
-    overlay: boolean;
+	active: boolean;
+	preview: boolean;
+	overlay: boolean;
 
-    disabled?: boolean;
+	disabled?: boolean;
 };
 
 export type ExternalState = {
-    active: boolean;
+	active: boolean;
 
-    disabled?: boolean;
+	disabled?: boolean;
 };
 
 export type StreamState = {
-    active: boolean;
+	active: boolean;
 
-    disabled?: boolean;
+	disabled?: boolean;
 };
 
 export type PictureState = {
-    active: boolean;
-    preview: boolean;
-    overlay: boolean;
+	active: boolean;
+	preview: boolean;
+	overlay: boolean;
 
-
-    disabled?: boolean;
+	disabled?: boolean;
 };
