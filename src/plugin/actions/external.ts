@@ -45,7 +45,9 @@ export class External extends SingletonAction<ExternalSettings> {
 			action.showAlert();
 			state.disabled = true;
 			this.setExternalState(action.id, state);
-			await action.setTitle("Error");
+			if (action.isKey()) {
+				await action.setTitle("Error");
+			}
 			return;
 		}
 
@@ -58,7 +60,7 @@ export class External extends SingletonAction<ExternalSettings> {
 			changed = true;
 		}
 		type = active ? "_active" : "";
-		if (changed || override) {
+		if ((changed || override) && action.isKey()) {
 			this.setExternalState(action.id, state);
 			await action.setTitle(settings.title);
 			await action.setImage("imgs/actions/external/key" + type);

@@ -1,4 +1,4 @@
-import streamDeck, { Action, action, DidReceiveSettingsEvent, KeyDownEvent, SendToPluginEvent, SingletonAction, WillAppearEvent, WillDisappearEvent } from "@elgato/streamdeck";
+import streamDeck, { Action, action, DidReceiveSettingsEvent, JsonObject, KeyDownEvent, SendToPluginEvent, SingletonAction, WillAppearEvent, WillDisappearEvent } from "@elgato/streamdeck";
 
 import { OVERLAY, TRANSITIONTYPE } from "../../constants";
 import { InputsPayload } from "../../types/payloads";
@@ -68,7 +68,9 @@ export class Transition extends SingletonAction<TransitionSettings> {
 			action.showAlert();
 			state.disabled = true;
 			this.setTransitionState(action.id, state);
-			await action.setTitle("Error");
+			if (action.isKey()) {
+				await action.setTitle("Error");
+			}
 			return;
 		}
 
@@ -89,7 +91,7 @@ export class Transition extends SingletonAction<TransitionSettings> {
 			changed = true;
 		}
 		type = active ? "_active" : overlay ? "_overlay" : preview ? "_preview" : "";
-		if (changed || override) {
+		if ((changed || override) && action.isKey()) {
 			this.setTransitionState(action.id, state);
 			await action.setTitle(settings.title);
 			await action.setImage("imgs/actions/transition/key" + type);
@@ -116,7 +118,7 @@ export class Transition extends SingletonAction<TransitionSettings> {
 		this.transitions[id] = state;
 	}
 
-	onSendToPlugin(ev: SendToPluginEvent<InputsPayload, object>): Promise<void> | void {
+	onSendToPlugin(ev: SendToPluginEvent<InputsPayload, JsonObject>): Promise<void> | void {
 		if (ev.payload.event == "getInputs") {
 			var inputs = Array();
 			for (let i = 0; i < vMixInstance.inputs.length; i++) {
@@ -125,21 +127,21 @@ export class Transition extends SingletonAction<TransitionSettings> {
 					value: vMixInstance.inputs[i].number
 				});
 			}
-			ev.action.sendToPropertyInspector({
+			streamDeck.ui.current?.sendToPropertyInspector({
 				event: "getInputs",
 				items: inputs
 			});
 		}
 		if (ev.payload.event == "getTransitions") {
 			var transitions = Object.entries(TRANSITIONTYPE).map(([value, label]) => ({ value: label, label: label }));
-			ev.action.sendToPropertyInspector({
+			streamDeck.ui.current?.sendToPropertyInspector({
 				event: "getTransitions",
 				items: transitions
 			});
 		}
 		if (ev.payload.event == "getOverlays") {
 			var overlays = Object.entries(OVERLAY).map(([value, label]) => ({ value: label, label: label }));
-			ev.action.sendToPropertyInspector({
+			streamDeck.ui.current?.sendToPropertyInspector({
 				event: "getOverlays",
 				items: overlays
 			});

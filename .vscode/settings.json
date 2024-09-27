@@ -1,21 +1,15 @@
 {
-	/* JSON schemas */
-	"json.schemas": [
-		{
-			"fileMatch": ["**/manifest.json"],
-			"url": "https://schemas.elgato.com/streamdeck/plugins/manifest.json"
-		},
-		{
-			"fileMatch": ["**/layouts/*.json"],
-			"url": "https://schemas.elgato.com/streamdeck/plugins/layout.json"
-		}
-	],
 	"editor.detectIndentation": false,
+	"editor.insertSpaces": false,
 	/* Explorer */
 	"explorer.fileNesting.enabled": true,
 	"explorer.fileNesting.patterns": {
 		"*.js": "${capture}.js.map, ${capture}.min.js, ${capture}.d.ts",
-		"package.json": "package-lock.json, yarn.lock, pnpm-lock.yaml, rollup.config.mjs, tsconfig.json"
+		"*.ts": "${capture}.test.ts",
+		".editorconfig": "eslint.config.mjs, .prettierrc.cjs",
+		"jest.config.ts": "babel.config.json",
+		"package.json": "package-lock.json, yarn.lock, pnpm-lock.yaml, .npmrc",
+		"README.md": "CHANGELOG.md, LICENSE, UPGRADE.md"
 	},
 	"files.eol": "\n",
 	"files.exclude": {

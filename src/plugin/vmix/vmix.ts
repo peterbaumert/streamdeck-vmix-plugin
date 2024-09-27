@@ -1,4 +1,4 @@
-import streamDeck, { Action } from "@elgato/streamdeck";
+import streamDeck, { ActionContext } from "@elgato/streamdeck";
 import { ConnectionTCP } from "node-vmix";
 import { XmlApi } from "vmix-js-utils";
 import { MasterAudioBus } from "vmix-js-utils/dist/types/audio-bus";
@@ -8,7 +8,7 @@ import { OverlayChannel } from "vmix-js-utils/dist/types/overlay-channel";
 import XmlState from "vmix-js-utils/dist/xml-api/general-state";
 
 import { External, Input, Master, Picture, Stream, Transition } from "../../types/misc";
-import { GlobalSettings } from "../../types/settings";
+import { GlobalSettings, TransitionSettings } from "../../types/settings";
 
 const logger = streamDeck.logger.createScope("vMix");
 
@@ -265,7 +265,7 @@ export class vMix {
 		});
 	}
 
-	async registerMaster(ac: Action, that: any, settings: any) {
+	async registerMaster(ac: ActionContext, that: any, settings: any) {
 		if (ac === undefined) return;
 		if (this.masterList.find(({ action }) => action.id === ac.id) === undefined) {
 			this.masterList.push({
@@ -279,7 +279,7 @@ export class vMix {
 		}
 	}
 
-	async unregisterMaster(ac: Action) {
+	async unregisterMaster(ac: ActionContext) {
 		if (ac === undefined) return;
 		if (this.masterList.find(({ action }) => action.id === ac.id) !== undefined) {
 			this.masterList.splice(
@@ -289,7 +289,7 @@ export class vMix {
 		}
 	}
 
-	async registerStream(ac: Action, that: any, settings: any) {
+	async registerStream(ac: ActionContext, that: any, settings: any) {
 		if (ac === undefined) return;
 		if (this.streamList.find(({ action }) => action.id === ac.id) === undefined) {
 			this.streamList.push({
@@ -303,7 +303,7 @@ export class vMix {
 		}
 	}
 
-	async unregisterStream(ac: Action) {
+	async unregisterStream(ac: ActionContext) {
 		if (ac === undefined) return;
 		if (this.streamList.find(({ action }) => action.id === ac.id) !== undefined) {
 			this.streamList.splice(
@@ -313,7 +313,7 @@ export class vMix {
 		}
 	}
 
-	async registerExternal(ac: Action, that: any, settings: any) {
+	async registerExternal(ac: ActionContext, that: any, settings: any) {
 		if (ac === undefined) return;
 		if (this.externalList.find(({ action }) => action.id === ac.id) === undefined) {
 			this.externalList.push({
@@ -327,7 +327,7 @@ export class vMix {
 		}
 	}
 
-	async unregisterExternal(ac: Action) {
+	async unregisterExternal(ac: ActionContext) {
 		if (ac === undefined) return;
 		if (this.externalList.find(({ action }) => action.id === ac.id) !== undefined) {
 			this.externalList.splice(
@@ -337,7 +337,7 @@ export class vMix {
 		}
 	}
 
-	async registerPicture(input: string, ac: Action, that: any, settings: any) {
+	async registerPicture(input: string, ac: ActionContext, that: any, settings: any) {
 		if (ac === undefined) return;
 		if (this.pictureList.find(({ action }) => action.id === ac.id) === undefined) {
 			this.pictureList.push({
@@ -352,7 +352,7 @@ export class vMix {
 		}
 	}
 
-	async unregisterPicture(ac: Action) {
+	async unregisterPicture(ac: ActionContext) {
 		if (ac === undefined) return;
 		if (this.pictureList.find(({ action }) => action.id === ac.id) !== undefined) {
 			this.pictureList.splice(
@@ -362,7 +362,7 @@ export class vMix {
 		}
 	}
 
-	async registerTransition(input: string, ac: Action, that: any, settings: any) {
+	async registerTransition(input: string, ac: ActionContext, that: any, settings: any) {
 		if (ac === undefined) return;
 		if (this.transitionList.find(({ action }) => action.id === ac.id) === undefined) {
 			this.transitionList.push({
@@ -377,7 +377,7 @@ export class vMix {
 		}
 	}
 
-	async unregisterTransition(ac: Action) {
+	async unregisterTransition(ac: ActionContext) {
 		if (ac === undefined) return;
 		if (this.transitionList.find(({ action }) => action.id === ac.id) !== undefined) {
 			this.transitionList.splice(
@@ -387,7 +387,7 @@ export class vMix {
 		}
 	}
 
-	async registerInputVolume(input: string, ac: Action, that: any, settings: any) {
+	async registerInputVolume(input: string, ac: ActionContext, that: any, settings: any) {
 		if (ac === undefined) return;
 		if (this.inputList.find(({ action }) => action.id === ac.id) === undefined) {
 			this.inputList.push({
@@ -402,7 +402,7 @@ export class vMix {
 		}
 	}
 
-	async unregisterInputVolume(ac: Action) {
+	async unregisterInputVolume(ac: ActionContext) {
 		if (ac === undefined) return;
 		if (this.inputList.find(({ action }) => action.id === ac.id) !== undefined) {
 			this.inputList.splice(

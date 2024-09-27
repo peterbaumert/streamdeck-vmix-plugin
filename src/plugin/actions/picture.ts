@@ -1,4 +1,4 @@
-import streamDeck, { Action, action, DidReceiveSettingsEvent, KeyDownEvent, SendToPluginEvent, SingletonAction, WillAppearEvent, WillDisappearEvent } from "@elgato/streamdeck";
+import streamDeck, { Action, action, DidReceiveSettingsEvent, JsonObject, KeyDownEvent, SendToPluginEvent, SingletonAction, WillAppearEvent, WillDisappearEvent } from "@elgato/streamdeck";
 
 import { InputsPayload } from "../../types/payloads";
 import { PictureSettings } from "../../types/settings";
@@ -55,7 +55,9 @@ export class Picture extends SingletonAction<PictureSettings> {
 			action.showAlert();
 			state.disabled = true;
 			this.setPictureState(action.id, state);
-			await action.setTitle("Error");
+			if (action.isKey()) {
+				await action.setTitle("Error");
+			}
 			return;
 		}
 
@@ -77,7 +79,7 @@ export class Picture extends SingletonAction<PictureSettings> {
 		}
 		type = state.active ? "_active" : state.overlay ? "_overlay" : state.preview ? "_preview" : "";
 		type += settings.next ? "_next" : "_prev";
-		if (changed || override) {
+		if ((changed || override) && action.isKey()) {
 			this.setPictureState(action.id, state);
 			await action.setTitle(settings.title);
 			await action.setImage("imgs/actions/picture/key" + type);
@@ -104,7 +106,7 @@ export class Picture extends SingletonAction<PictureSettings> {
 		this.pictures[id] = state;
 	}
 
-	onSendToPlugin(ev: SendToPluginEvent<InputsPayload, object>): Promise<void> | void {
+	onSendToPlugin(ev: SendToPluginEvent<InputsPayload, JsonObject>): Promise<void> | void {
 		if (ev.payload.event == "getInputs") {
 			var inputs = Array();
 			for (let i = 0; i < vMixInstance.inputs.length; i++) {
@@ -113,7 +115,7 @@ export class Picture extends SingletonAction<PictureSettings> {
 					value: vMixInstance.inputs[i].number
 				});
 			}
-			ev.action.sendToPropertyInspector({
+			streamDeck.ui.current?.sendToPropertyInspector({
 				event: "getInputs",
 				items: inputs
 			});

@@ -45,7 +45,9 @@ export class Stream extends SingletonAction<StreamSettings> {
 			action.showAlert();
 			state.disabled = true;
 			this.setStreamState(action.id, state);
-			await action.setTitle("Error");
+			if (action.isKey()) {
+				await action.setTitle("Error");
+			}
 			return;
 		}
 
@@ -58,7 +60,7 @@ export class Stream extends SingletonAction<StreamSettings> {
 			changed = true;
 		}
 		type = active ? "_active" : "";
-		if (changed || override) {
+		if ((changed || override) && action.isKey()) {
 			this.setStreamState(action.id, state);
 			await action.setTitle(settings.title);
 			await action.setImage("imgs/actions/stream/key" + type);

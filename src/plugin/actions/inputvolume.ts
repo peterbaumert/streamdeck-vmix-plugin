@@ -4,6 +4,7 @@ import streamDeck, {
 	DialDownEvent,
 	DialRotateEvent,
 	DidReceiveSettingsEvent,
+	JsonObject,
 	SendToPluginEvent,
 	SingletonAction,
 	TouchTapEvent,
@@ -106,12 +107,14 @@ export class InputVolume extends SingletonAction<InputVolumeSettings> {
 			action.showAlert();
 			state.disabled = true;
 			this.setDialState(action.id, state);
-			await action.setFeedback({
-				value: "Error",
-				indicator: {
-					value: 0
-				}
-			});
+			if (action.isDial()) {
+				await action.setFeedback({
+					value: "Error",
+					indicator: {
+						value: 0
+					}
+				})
+			};
 			return;
 		}
 
@@ -131,7 +134,7 @@ export class InputVolume extends SingletonAction<InputVolumeSettings> {
 			state.disabled = false;
 			changed = true;
 		}
-		if (changed || override) {
+		if ((changed || override) && action.isDial()) {
 			this.setDialState(action.id, state);
 			await action.setFeedbackLayout("json/layouts/" + (sent ? "green" : "red") + ".json");
 			await action.setFeedback({
@@ -142,7 +145,6 @@ export class InputVolume extends SingletonAction<InputVolumeSettings> {
 				},
 				icon: muted ? "imgs/actions/volume/speaker-disabled" : "imgs/actions/volume/speaker"
 			});
-			action.showOk();
 		}
 	}
 
@@ -166,7 +168,7 @@ export class InputVolume extends SingletonAction<InputVolumeSettings> {
 		this.dials[id] = state;
 	}
 
-	onSendToPlugin(ev: SendToPluginEvent<InputsPayload, object>): Promise<void> | void {
+	onSendToPlugin(ev: SendToPluginEvent<InputsPayload, JsonObject>): Promise<void> | void {
 		if (ev.payload.event == "getInputs") {
 			var inputs = Array();
 			for (let i = 0; i < vMixInstance.inputs.length; i++) {
@@ -175,7 +177,7 @@ export class InputVolume extends SingletonAction<InputVolumeSettings> {
 					value: vMixInstance.inputs[i].number
 				});
 			}
-			ev.action.sendToPropertyInspector({
+			streamDeck.ui.current?.sendToPropertyInspector({
 				event: "getInputs",
 				items: inputs
 			});
