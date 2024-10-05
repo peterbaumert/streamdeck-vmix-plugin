@@ -65,12 +65,14 @@ export class MasterVolume extends SingletonAction<MasterVolumeSettings> {
 			action.showAlert();
 			state.disabled = true;
 			this.setDialState(action.id, state);
-			await action.setFeedback({
-				value: "Error",
-				indicator: {
-					value: 0
-				}
-			});
+			if (action.isDial()) {
+				await action.setFeedback({
+					value: "Error",
+					indicator: {
+						value: 0
+					}
+				})
+			};
 			return;
 		}
 
@@ -86,7 +88,7 @@ export class MasterVolume extends SingletonAction<MasterVolumeSettings> {
 			state.disabled = false;
 			changed = true;
 		}
-		if (changed || override) {
+		if ((changed || override) && action.isDial()) {
 			this.setDialState(action.id, state);
 			await action.setFeedback({
 				name: settings.title,
@@ -96,7 +98,6 @@ export class MasterVolume extends SingletonAction<MasterVolumeSettings> {
 				},
 				icon: muted ? "imgs/actions/volume/speaker-disabled" : "imgs/actions/volume/speaker"
 			});
-			action.showOk();
 		}
 	}
 
