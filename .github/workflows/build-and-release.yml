@@ -30,16 +30,16 @@ jobs:
       - name: Install Project Dependencies
         run: npm ci
 
-      - name: Build
-        run: npm run build
-
-      - name: Pack
-        run: streamdeck pack io.baumert.vmix.sdPlugin
-
       - uses: release-drafter/release-drafter@v6
         id: rd
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build
+        run: npm run build
+
+      - name: Pack
+        run: streamdeck pack io.baumert.vmix.sdPlugin --version ${{ steps.rd.outputs.tag_name }}
 
       - name: Rename Binary
         run: mv io.baumert.vmix.streamDeckPlugin io.baumert.vmix-${{ steps.rd.outputs.tag_name }}.streamDeckPlugin

@@ -125,7 +125,7 @@
 	],
 	"Nodejs": {
 		"Version": "20",
-		"Debug": "enabled"
+		"Debug": "--inspect=127.0.0.1:54545"
 	},
 	"UUID": "io.baumert.vmix",
 	"$schema": "https://schemas.elgato.com/streamdeck/plugins/manifest.json"
