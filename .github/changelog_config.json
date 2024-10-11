@@ -1,0 +1,61 @@
+{
+	"template": "## [Streamdeck vMix Plugin]\n\n#{{CHANGELOG}}",
+	"categories": [
+		{
+			"title": "### 💔 Breaking changes",
+			"labels": ["breaking"],
+			"exclude_labels": ["exclude"]
+		},
+		{
+			"title": "### 🆕 Features",
+			"labels": ["feature"],
+			"exclude_labels": ["exclude"],
+			"empty_content": "None"
+		},
+		{
+			"title": "### 🔧 Fixes",
+			"labels": ["fix"],
+			"exclude_labels": ["exclude"],
+			"empty_content": "None"
+		},
+		{
+			"title": "### 📦 Dependencies",
+			"exhaustive_rules": false,
+			"rules": [
+				{
+					"pattern": "dependency",
+					"on_property": "labels"
+				},
+				{
+					"pattern": "renovate\\[bot\\]",
+					"on_property": "author"
+				}
+			],
+			"exclude_labels": ["exclude"]
+		},
+		{
+			"title": "### 💬 Other",
+			"labels": [],
+			"exclude_labels": ["documentation", "exclude"]
+		}
+	],
+	"pr_template": "\n* #{{TITLE}} - [##{{NUMBER}}](#{{URL}}), by @#{{AUTHOR}}",
+	"empty_template": "- no changes",
+	"sort": {
+		"order": "ASC",
+		"on_property": "mergedAt"
+	},
+	"max_pull_requests": 1000,
+	"max_back_track_time_days": 1000,
+	"tag_resolver": {
+		"method": "sort",
+		"filter": {
+			"pattern": "v[0-9]+\\.[0-9]+\\.[0-9]+\\.[0-9]+",
+			"flags": "gu"
+		},
+		"transformer": {
+			"pattern": "v([0-9]+)\\.([0-9]+)\\.([0-9]+)\\.[0-9]+",
+			"target": "$1.$2.$3"
+		}
+	}
+}
