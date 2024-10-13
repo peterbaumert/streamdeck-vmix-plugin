@@ -69,8 +69,18 @@ jobs:
       - name: Build
         run: npm run build
 
+      - name: Update manifest.json debug
+        uses: jossef/action-set-json-field@v2.1
+        with:
+          file: io.baumert.vmix.sdPlugin/manifest.json
+          field: Nodejs.Debug
+          value: undefined
+
       - name: Pack
         run: streamdeck pack io.baumert.vmix.sdPlugin --version ${{needs.read-version.outputs.version}}
+
+      - name: Rename Binary
+        run: mv io.baumert.vmix.streamDeckPlugin io.baumert.vmix-${{needs.read-version.outputs.version}}.streamDeckPlugin
 
       - name: upload artifacts
         uses: softprops/action-gh-release@v2
