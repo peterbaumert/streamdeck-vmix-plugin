@@ -4,11 +4,11 @@
 	"Author": "Peter Baumert",
 	"Actions": [
 		{
-			"Name": "Tansition",
+			"Name": "Transition",
 			"UUID": "io.baumert.vmix.transition",
 			"Icon": "imgs/actions/transition/action",
 			"PropertyInspectorPath": "ui/transition.html",
-			"Tooltip": "Run a Transition",
+			"Tooltip": "Run a transition",
 			"Controllers": ["Keypad"],
 			"States": [
 				{
@@ -60,7 +60,7 @@
 		{
 			"Name": "Input Volume",
 			"UUID": "io.baumert.vmix.inputvolume",
-			"Icon": "imgs/actions/volume/speaker",
+			"Icon": "imgs/actions/volume/action",
 			"Tooltip": "Control Audio settings of an Input",
 			"PropertyInspectorPath": "ui/inputvolume.html",
 			"Controllers": ["Encoder"],
@@ -84,7 +84,7 @@
 		{
 			"Name": "Master Volume",
 			"UUID": "io.baumert.vmix.mastervolume",
-			"Icon": "imgs/actions/volume/speaker",
+			"Icon": "imgs/actions/volume/action",
 			"Tooltip": "Control Audio settings of an Input",
 			"Controllers": ["Encoder"],
 			"States": [
@@ -107,7 +107,7 @@
 	"Category": "vMix",
 	"CategoryIcon": "imgs/plugin/icon28",
 	"CodePath": "bin/plugin.js",
-	"Description": "Plugin to controll vMix",
+	"Description": "Plugin to control vMix",
 	"Icon": "imgs/plugin/icon144",
 	"SDKVersion": 2,
 	"Software": {
